@@ -1,0 +1,80 @@
+/* src/pages/DashboardPage/DashboardPage.module.css */
+
+/* Contenedor general centrado en pantalla completa */
+.containerWelcomegen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Contenedor interno en grid para los componentes del dashboard */
+.containerWelcome {
+  display: grid;
+  padding-top: 1rem;
+  padding-left: 1rem;
+  grid-template-columns: 1.83fr 1fr;
+  grid-template-rows: 33% 60%;
+  gap: 1rem;
+  width: 90vw;
+  height: 91vh;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.containerwelcome2 {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 2px 1px 5px rgba(0, 0, 0, 0.4);
+    grid-column: 1 / span 1;
+    /* Primera columna */
+    grid-row: 1 / span 1;
+    /* Primera fila */
+    width: 100%;
+    height: 100%;
+}
+
+.graficaest {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 2px 1px 5px rgba(0, 0, 0, 0.4);
+    grid-column: 1 / span 1;
+    /* Primera columna */
+    grid-row: 2 / span 1;
+    /* Segunda fila */
+    width: 100%;
+    height: 100%;
+}
+
+.prueba2 {
+     background-color: #00ff1a;
+    grid-column: 1 / span 2;
+    /* Ocupa ambas columnas */
+    grid-row: 3 / span 1;
+    /* Tercera fila */
+    width: 100%;
+    height: 50rem;
+}
+
+
+/* Ajustes responsivos */
+@media (max-width: var(--bp-xl)) {
+  .containerWelcome {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    width: 95vw;
+    height: auto;
+  }
+}
+
+@media (max-width: var(--bp-md)) {
+  .containerWelcomegen {
+    padding: 1rem;
+  }
+  .containerWelcome {
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+}
