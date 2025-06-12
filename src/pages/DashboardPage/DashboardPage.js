@@ -1,25 +1,67 @@
 // src/pages/DashboardPage/DashboardPage.jsx
 import React from "react";
-import { useAuth } from "../../hooks/useAuth";
 import styles from "./DashboardPage.module.css";
 
+// IMPORTA AQUÍ tus componentes de gráficos:
+import RevenueChart from "../../components/charts/RevenueChart";
+import CalendarWidget from "../../components/CalendarWidget";
+import InstallsChart from "../../components/charts/InstallsChart";
+import WorkoutsList from "../../components/WorkoutsList";
+import AgeRangeChart from "../../components/charts/AgeRangeChart";
+import ImpressionsMap from "../../components/ImpressionsMap";
+
 export default function DashboardPage() {
-  const { user, signOut } = useAuth();
+ 
+
   return (
-    <div className={styles.containerWelcomegen}>
-      <div className={styles.containerWelcome}>
-        <div className={styles.containerwelcome2}>
-          <h1>Bienvenido, {user?.name || user?.email}</h1>
-          <button onClick={signOut}>Cerrar sesión</button>
-          {/* Aquí tus componentes del “board” */}
+    <div className={styles.dashboardWrapper}>
+      <div className={styles.dashboardGrid}>
+        {/* Revenue */}
+        <div className={`${styles.card} ${styles.cardRevenue}`}>
+          <header>
+            <h2>Revenue</h2>
+          </header>
+          <RevenueChart />
         </div>
-        <div className={styles.graficaest}>
-          <h1>CONTENEDOR DONDE IRA GRAFICAS, {user?.name || user?.email}</h1>
-          {/* Aquí tus componentes del “board” */}
+
+        {/* Calendar */}
+        <div className={`${styles.card} ${styles.cardCalendar}`}>
+          <header>
+            <h2>Calendar</h2>
+          </header>
+          <CalendarWidget />
         </div>
-          <div className={styles.prueba2}>
-          <h1>HOLA MUNDO, {user?.name || user?.email}</h1>
-          {/* Aquí tus componentes del “board” */}
+
+        {/* Installs */}
+        <div className={`${styles.card} ${styles.cardInstalls}`}>
+          <header>
+            <h2>Installs</h2>
+          </header>
+          <InstallsChart />
+        </div>
+
+        {/* Popular Workouts */}
+        <div className={`${styles.card} ${styles.cardWorkouts}`}>
+          <header>
+            <h2>Popular Workouts</h2>
+          </header>
+          <WorkoutsList />
+        </div>
+
+        {/* Age Range */}
+        <div className={`${styles.card} ${styles.cardAgeRange}`}>
+          <header>
+            <h2>Age Range</h2>
+          </header>
+          <AgeRangeChart />
+        </div>
+
+        {/* Impressions */}
+        <div className={`${styles.card} ${styles.cardImpressions}`}>
+          <header>
+            <h2>Impressions</h2>
+          </header>
+          <ImpressionsMap />
         </div>
       </div>
     </div>
