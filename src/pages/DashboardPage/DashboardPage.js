@@ -100,7 +100,7 @@ export default function DashboardPage() {
           {/* Revenue */}
           <div className={`${styles.card} ${styles.cardRevenue}`}>
             <header>
-              <h2>Revenue</h2>
+              <h2>Plano</h2>
             </header>
             <RevenueChart />
           </div>
