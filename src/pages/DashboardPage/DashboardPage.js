@@ -116,7 +116,7 @@ export default function DashboardPage() {
           {/* Installs */}
           <div className={`${styles.card} ${styles.cardInstalls}`}>
             <header>
-              <h2>Installs</h2>
+              <h2>Productividad</h2>
             </header>
             <InstallsChart />
           </div>

@@ -27,7 +27,7 @@ ApiService.interceptors.request.use(
  * Devuelve todas las filas de la tabla productivity como list[ProductivityOut]
  */
 export async function getProductivity() {
-  const response = await ApiService.get('/productivity');
+  const response = await ApiService.get('/data/productivity');
   return response.data;
 }
 
@@ -36,7 +36,7 @@ export async function getProductivity() {
  * Devuelve todas las filas de la tabla sales como list[SaleOut]
  */
 export async function getSales() {
-  const response = await ApiService.get('/sales');
+  const response = await ApiService.get('/data/sales');
   return response.data;
 }
 
@@ -45,7 +45,7 @@ export async function getSales() {
  * Devuelve todas las filas de la tabla reports como list[ReportOut]
  */
 export async function getReports() {
-  const response = await ApiService.get('/reports');
+  const response = await ApiService.get('/data/reports');
   return response.data;
 }
 /**
@@ -59,7 +59,7 @@ export async function getUsers() {
 
 export async function createUser({ email, password, name }) {
   const payload = { email, password, name, roles: [1] };
-  const response = await ApiService.post('/crear-usuarios', payload);
+  const response = await ApiService.post('/users/crear-usuarios', payload);
   return response.data;
 }
 

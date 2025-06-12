@@ -1,27 +1,74 @@
-// src/components/charts/InstallsChart.jsx
-import React from 'react';
+// src/components/charts/StackedProductivityChart.jsx
+import React, { useEffect, useState } from 'react';
 import {
-  BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  ResponsiveContainer,
+  Cell
 } from 'recharts';
+import { getProductivity } from '../../api/ApiService';
 
-const installsData = [
-  { day: 'Mon', ios: 400, android: 240 },
-  { day: 'Tue', ios: 300, android: 456 },
-  { day: 'Wed', ios: 300, android: 139 },
-  { day: 'Thu', ios: 200, android: 980 },
-  { day: 'Fri', ios: 278, android: 390 },
-];
+export default function StackedProductivityChart() {
+  const [data, setData] = useState([]);
+  const [userIds, setUserIds] = useState([]);
 
-export default function InstallsChart() {
+  useEffect(() => {
+    getProductivity()
+      .then(raw => {
+        // 1) Averiguar todos los user_id únicos
+        const ids = Array.from(new Set(raw.map((r) => r.user_id)));
+        setUserIds(ids);
+
+        // 2) Pivotar: para cada fecha, crear un objeto { date, u1: value, u2: value, ... }
+        const pivot = {};
+        raw.forEach(({ date, user_id, value }) => {
+          if (!pivot[date]) pivot[date] = { date };
+          const key = `u${user_id}`;
+          pivot[date][key] = (pivot[date][key] || 0) + value;
+        });
+
+        // 3) Ordenar cronológicamente y pasar a array
+        const chartData = Object.values(pivot).sort(
+          (a, b) => new Date(a.date) - new Date(b.date)
+        );
+        setData(chartData);
+      })
+      .catch((err) => console.error('Error cargando productividad:', err));
+  }, []);
+
+  if (!data.length) return null;
+
+  // Colores para cada usuario (cicla si hay más de 5)
+  const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff8042', '#8dd1e1'];
+
   return (
-    <ResponsiveContainer width="100%" height={200}>
-      <BarChart data={installsData} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
+    <ResponsiveContainer width="100%" height={250}>
+      <BarChart
+        data={data}
+        margin={{ top: 10, right: 20, left: 0, bottom: 0 }}
+      >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="day" />
+        <XAxis dataKey="date" />
         <YAxis />
-        <Tooltip />
-        <Bar dataKey="ios" stackId="a" fill="#8884d8" />
-        <Bar dataKey="android" stackId="a" fill="#82ca9d" />
+        <Tooltip
+          formatter={(val) => val.toFixed(1)}
+          labelFormatter={(lbl) => `Día: ${lbl}`}
+        />
+
+        {userIds.map((id, idx) => (
+          <Bar
+            key={id}
+            dataKey={`u${id}`}
+            stackId="a"
+            fill={COLORS[idx % COLORS.length]}
+            isAnimationActive={false}
+          />
+        ))}
+
       </BarChart>
     </ResponsiveContainer>
   );
