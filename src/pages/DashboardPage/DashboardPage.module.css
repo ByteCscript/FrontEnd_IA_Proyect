@@ -149,18 +149,28 @@
 }
 
 
-/* Limpieza de estilos para Accordion en header */
+/* src/pages/DashboardHeaderProfile.module.css */
+
+/* Contenedor para el avatar + accordion, permite overflow de detalles */
+.profileContainer {
+  position: relative;
+  overflow: visible;
+}
+
+/* Summary limpio y alineado */
 .summaryRoot {
   padding: 0 !important;
   margin: 0 !important;
   display: flex !important;
   align-items: center !important;
-  gap: 16px !important;   /* ahora los separa más */
+  gap: 16px;                /* separación mayor entre avatar y texto */
   min-height: 0 !important;
 }
 .summaryRootExpanded {
   min-height: 0 !important;
 }
+
+/* Ajustes del contenido interno del summary */
 .summaryContent {
   margin: 0 !important;
   align-items: center !important;
@@ -168,10 +178,29 @@
 .summaryContentExpanded {
   margin: 0 !important;
 }
+
+/* Color de la flecha de expansión */
 .expandIconWrapper {
   color: #fff !important;
 }
+
+/* Details posicionados como overlay encima del header */
 .detailsRoot {
+  position: absolute !important;
+  top: 100% !important;     /* justo debajo del summary */
+  right: 0 !important;
+  z-index: 1100 !important;
   padding: 0 !important;
   margin-top: 4px !important;
+}
+
+.buttonRoot {
+  border-radius: .2rem !important;
+  background-color: #9cb1c6 !important;  /* azul por defecto */
+}
+.buttonRoot:hover {
+  background-color: #507aa4 !important;  /* azul más oscuro en hover */
+}
+.buttonRoot.Mui-selected {
+  background-color: #004ba0 !important;  /* si lo marcas seleccionado */
 }

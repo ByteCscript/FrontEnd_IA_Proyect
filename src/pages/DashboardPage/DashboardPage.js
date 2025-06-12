@@ -44,57 +44,60 @@ export default function DashboardPage() {
           <div className={styles.navItem}>Finance</div>
           <div className={styles.navItem}>Workouts</div>
         </nav>
-        <Accordion
-          expanded={expanded === "panel1"}
-          onChange={handleChange("panel1")}
-          disableGutters
-          elevation={0}
-          square
-          sx={{ bgcolor: "transparent", width: "auto" }}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="profile-content"
-            id="profile-header"
+        <div className={styles.profileContainer}>
+          <Accordion
+            expanded={expanded === "panel1"}
+            onChange={handleChange("panel1")}
             disableGutters
-            classes={{
-              root: styles.summaryRoot,
-              expanded: styles.summaryRootExpanded,
-              content: styles.summaryContent,
-              contentExpanded: styles.summaryContentExpanded,
-              expandIconWrapper: styles.expandIconWrapper,
-            }}
+            elevation={0}
+            square
+            sx={{ bgcolor: "transparent", width: "auto" }}
           >
-            <Avatar {...stringAvatar(name)} />
-            <Typography
-              sx={{
-                color: "#fff",
-                fontWeight: 500,
-                marginLeft: "1rem", // aquí defines la separación que necesites
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="profile-content"
+              id="profile-header"
+              disableGutters
+              classes={{
+                root: styles.summaryRoot,
+                expanded: styles.summaryRootExpanded,
+                content: styles.summaryContent,
+                contentExpanded: styles.summaryContentExpanded,
+                expandIconWrapper: styles.expandIconWrapper,
               }}
             >
-              HOLA MUNDO
-            </Typography>
-          </AccordionSummary>
+              <Avatar {...stringAvatar(name)} />
+              <Typography
+                sx={{
+                  color: "#fff",
+                  fontWeight: 500,
+                  marginLeft: "1rem",
+                }}
+              >
+                HOLA MUNDO
+              </Typography>
+            </AccordionSummary>
 
-          <AccordionDetails classes={{ root: styles.detailsRoot }}>
-            <Paper
-              elevation={3}
-              sx={{ bgcolor: "background.paper", borderRadius: 1 }}
-            >
-              <List component="nav" disablePadding>
-                <ListItemButton
-                  onClick={() => {
-                    signOut();
-                    setExpanded(false);
-                  }}
-                >
-                  <ListItemText primary="Cerrar sesión" />
-                </ListItemButton>
-              </List>
-            </Paper>
-          </AccordionDetails>
-        </Accordion>
+            <AccordionDetails classes={{ root: styles.detailsRoot }}>
+              <Paper
+                elevation={3}
+                sx={{ bgcolor: "background.paper", borderRadius: 1 }}
+              >
+                <List component="nav" disablePadding>
+                  <ListItemButton
+                    onClick={() => {
+                      signOut();
+                      setExpanded(false);
+                    }}
+                    classes={{ root: styles.buttonRoot }}
+                  >
+                    <ListItemText primary="Cerrar sesión" />
+                  </ListItemButton>
+                </List>
+              </Paper>
+            </AccordionDetails>
+          </Accordion>
+        </div>
       </header>
       <div className={styles.gridContainer}>
         <div className={styles.dashboardGrid}>
