@@ -3,14 +3,16 @@ const BASE_API = process.env.REACT_APP_API_URL || "http://localhost:8000/api";
 
 const AuthService = {
   async login({ email, password }) {
+    console.log("Enviando body:", JSON.stringify({ email, password }));
     const res = await fetch(`${BASE_API}/users/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
-    // justo antes del fetch en AuthService.login
-    console.log("Enviando body:", JSON.stringify({ email, password }));
 
+    if (res.status === 401) {
+      throw new Error("Unauthorized");
+    }
     if (res.status === 422) {
       const { detail } = await res.json();
       console.error("Validation errors:", detail);

@@ -1,36 +1,32 @@
-import React, { createContext, useState, useEffect } from 'react';
-import authApi from '../api/auth';
+// src/contexts/AuthContext.jsx
+import React, { createContext, useState, useEffect } from "react";
+import AuthService from "../api/auth";
 
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Al montar: verificar token en localStorage o cookie
   useEffect(() => {
-    const stored = localStorage.getItem('token');
-    if (stored) setToken(stored);
+    const t = localStorage.getItem("access_token");
+    if (t) setToken(t);
     setLoading(false);
   }, []);
 
-  const signIn = async (email, password) => {
-    const data = await authApi.login(email, password);
-    localStorage.setItem('token', data.token);
-    setToken(data.token);
-    setUser({ email: data.user.email, name: data.user.name });
+  // ----- Asegúrate de esta firma: recibe un objeto {email,password} -----
+  const signIn = async ({ email, password }) => {
+    const accessToken = await AuthService.login({ email, password });
+    setToken(accessToken);
   };
 
   const signOut = () => {
-    localStorage.removeItem('token');
+    AuthService.logout();
     setToken(null);
-    setUser(null);
-    authApi.logout();
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, signIn, signOut }}>
+    <AuthContext.Provider value={{ token, loading, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );

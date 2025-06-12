@@ -15,12 +15,12 @@ export default function LoginPage() {
     e.preventDefault();
     setError(null);
     try {
-      // 👉 envía un objeto con { email, password }
       await signIn({ email, password });
       navigate("/dashboard");
     } catch (err) {
-      // err.message viene de AuthService.login
-      if (err.message === "Validation error") {
+      if (err.message === "Unauthorized") {
+        setError("Credenciales inválidas");
+      } else if (err.message === "Validation error") {
         setError("Revisa tu email o contraseña");
       } else {
         setError("Error de servidor, intenta más tarde");
