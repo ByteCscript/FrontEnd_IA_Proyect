@@ -37,10 +37,21 @@ body {
   padding: 0;
   min-height: 100vh;
   font-family: var(--font-family);
+
+  /* 1) Color de respaldo puro */
   background-color: var(--color-bg);
+
+  /* 2) Degradado L→R que usa tu variable como punto de inicio */
+  background: linear-gradient(
+    to right,
+    var(--color-bg) -5%,
+    rgba(255, 255, 255, 0) 100%
+  );
+
   color: #333;
   line-height: 1.5;
 }
+
 
 /* Imágenes y vídeos responsivos */
 img,
