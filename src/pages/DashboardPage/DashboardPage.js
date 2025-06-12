@@ -19,6 +19,10 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { stringAvatar } from "../../utils/avatarHelper";
 import Avatar from "@mui/material/Avatar";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import Paper from "@mui/material/Paper";
 
 export default function DashboardPage() {
   const { user, signOut } = useAuth();
@@ -43,28 +47,50 @@ export default function DashboardPage() {
         <Accordion
           expanded={expanded === "panel1"}
           onChange={handleChange("panel1")}
-          sx={{ background: "transparent", boxShadow: "none" }}
+          disableGutters
+          elevation={0}
+          square
+          sx={{ width: "auto", bgcolor: "transparent" }}
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}
             aria-controls="profile-content"
             id="profile-header"
-            sx={{ padding: 0 }}
+            sx={{
+              p: 0,
+              m: 0,
+              minHeight: 0,
+              "& .MuiAccordionSummary-content": {
+                margin: 0,
+                alignItems: "center",
+              },
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+            }}
           >
-            {/* Primera “columna”: tu avatar */}
-
-            {/* Aquí el Avatar dinámico */}
             <Avatar {...stringAvatar(name)} />
-            {/* Segunda “columna”: el texto HOLA MUNDO */}
-            <Typography
-              component="span"
-              sx={{ marginLeft: "0.5rem", color: "#fff" }}
-            >
+            <Typography sx={{ color: "#fff", fontWeight: 500 }}>
               HOLA MUNDO
             </Typography>
           </AccordionSummary>
-          <AccordionDetails sx={{ padding: "0.5rem 1rem" }}>
-            <button onClick={signOut}>Cerrar sesión</button>
+
+          <AccordionDetails sx={{ p: 0, mt: 1 }}>
+            <Paper
+              elevation={3}
+              sx={{
+                bgcolor: "background.paper",
+                borderRadius: 1,
+                overflow: "hidden",
+              }}
+            >
+              <List component="nav" disablePadding>
+                <ListItemButton onClick={signOut}>
+                  <ListItemText primary="Cerrar sesión" />
+                </ListItemButton>
+                {/* Si quieres más opciones, añádelas aquí como ListItemButton */}
+              </List>
+            </Paper>
           </AccordionDetails>
         </Accordion>
       </header>
