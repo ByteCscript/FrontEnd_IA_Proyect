@@ -17,6 +17,8 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { stringAvatar } from "../../utils/avatarHelper";
+import Avatar from "@mui/material/Avatar";
 
 export default function DashboardPage() {
   const { user, signOut } = useAuth();
@@ -25,6 +27,9 @@ export default function DashboardPage() {
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+
+  
+  const name = user?.name || user?.email || "";
 
   return (
     <div className={styles.dashboardWrapper}>
@@ -48,11 +53,9 @@ export default function DashboardPage() {
             sx={{ padding: 0 }}
           >
             {/* Primera “columna”: tu avatar */}
-            <img
-              src="/path/to/avatar.jpg"
-              alt="Avatar"
-              className={styles.profileImg}
-            />
+
+            {/* Aquí el Avatar dinámico */}
+            <Avatar {...stringAvatar(name)} />
             {/* Segunda “columna”: el texto HOLA MUNDO */}
             <Typography
               component="span"
