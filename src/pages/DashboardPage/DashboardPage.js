@@ -68,13 +68,9 @@ export default function DashboardPage() {
             >
               <Avatar {...stringAvatar(name)} />
               <Typography
-                sx={{
-                  color: "#fff",
-                  fontWeight: 500,
-                  marginLeft: "1rem",
-                }}
+                sx={{ color: "#fff", fontWeight: 500, marginLeft: "1rem" }}
               >
-                HOLA MUNDO
+                {user?.name || "HOLA MUNDO"}
               </Typography>
             </AccordionSummary>
 

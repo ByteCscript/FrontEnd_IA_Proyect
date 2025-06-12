@@ -48,5 +48,21 @@ export async function getReports() {
   const response = await ApiService.get('/reports');
   return response.data;
 }
+/**
+ * GET /users
+ * Listar usuarios con roles => list[UserOut]
+ */
+export async function getUsers() {
+  const response = await ApiService.get('/users');
+  return response.data;
+}
+
+export async function createUser({ email, password, name }) {
+  const payload = { email, password, name, roles: [1] };
+  const response = await ApiService.post('/crear-usuarios', payload);
+  return response.data;
+}
+
+
 
 export default ApiService;
