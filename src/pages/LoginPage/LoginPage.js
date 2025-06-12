@@ -1,8 +1,9 @@
-// src/pages/LoginPage.jsx
+// src/pages/LoginPage/LoginPage.jsx
 import React, { useState } from "react";
-import { TextField, Button, Typography, Box } from "@mui/material";
+import { TextField, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import styles from "./LoginPage.module.css";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -29,53 +30,44 @@ export default function LoginPage() {
   };
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit}
-      sx={{
-        width: 300,
-        mx: "auto",
-        mt: 8,
-        display: "flex",
-        flexDirection: "column",
-        gap: 2,
-      }}
-    >
-      <Typography variant="h5" align="center">
-        Iniciar sesión
-      </Typography>
-
-      <TextField
-        id="email"
-        label="Correo electrónico"
-        variant="standard"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-        fullWidth
-      />
-
-      <TextField
-        id="password"
-        label="Contraseña"
-        variant="standard"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-        fullWidth
-      />
-
-      {error && (
-        <Typography color="error" variant="body2">
-          {error}
+    <div className={styles.loginWrapper}>
+      <div className={styles.loginBox}>
+        <Typography variant="h5" align="center">
+          Iniciar sesión
         </Typography>
-      )}
 
-      <Button type="submit" variant="contained" sx={{ mt: 2 }}>
-        Entrar
-      </Button>
-    </Box>
+        <TextField
+          id="email"
+          label="Correo electrónico"
+          variant="standard"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          fullWidth
+        />
+
+        <TextField
+          id="password"
+          label="Contraseña"
+          variant="standard"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          fullWidth
+        />
+
+        {error && (
+          <Typography color="error" variant="body2">
+            {error}
+          </Typography>
+        )}
+
+        <Button type="submit" variant="contained" onClick={handleSubmit}>
+          Entrar
+        </Button>
+      </div>
+    </div>
   );
 }
