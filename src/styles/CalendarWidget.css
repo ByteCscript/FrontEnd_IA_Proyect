@@ -1,0 +1,71 @@
+/* Contenedor base */
+.react-calendar {
+  width: 100% !important;
+  max-width: none !important;
+  background: #0f172a !important;     /* fondo oscuro */
+  color: #e2e8f0 !important;          /* texto claro */
+  border: none !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.6) !important;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+/* Cabecera de mes / navegación */
+.react-calendar__navigation {
+  background: #111827 !important;
+  color: #f8fafc !important;
+  border-bottom: 1px solid #374151 !important;
+}
+.react-calendar__navigation button {
+  color: #f8fafc !important;
+  min-width: 44px !important;
+  font-weight: bold !important;
+}
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  background: #1f2937 !important;
+}
+
+/* Días de la semana */
+.react-calendar__month-view__weekdays {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  background: #111827 !important;
+  border-bottom: 1px solid #374151 !important;
+}
+.react-calendar__month-view__weekdays__weekday abbr {
+  color: #9ca3af !important;
+}
+
+/* Celdas de días */
+.react-calendar__tile {
+  background: transparent !important;
+  color: #e2e8f0 !important;
+  border: none !important;
+  padding: 0.75em 0 !important;
+}
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  background: #1f2937 !important;
+  color: #fff !important;
+  border-radius: 4px !important;
+}
+
+/* Día actual */
+.react-calendar__tile--now {
+  background: #374151 !important;
+  color: #fff !important;
+  border-radius: 4px !important;
+}
+
+/* Día seleccionado */
+.react-calendar__tile--active {
+  background: #2563eb !important;  /* azul intenso */
+  color: #fff !important;
+  border-radius: 4px !important;
+}
+
+/* Ajuste de mes anterior/siguiente */
+.react-calendar__tile.react-calendar__month-view__days__day--neighboringMonth {
+  color: #6b7280 !important;  /* gris más tenue */
+}

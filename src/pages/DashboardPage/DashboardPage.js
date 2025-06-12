@@ -38,12 +38,12 @@ export default function DashboardPage() {
     <div className={styles.dashboardWrapper}>
       <header className={styles.dashboardHeader}>
         <div className={styles.logo}>IA Proyect</div>
-        <nav className={styles.nav}>
+        {/*  <nav className={styles.nav}>
           <div className={styles.navItem}>Overview</div>
           <div className={styles.navItem}>Analytics</div>
           <div className={styles.navItem}>Finance</div>
           <div className={styles.navItem}>Workouts</div>
-        </nav>
+        </nav> */}
         <div className={styles.profileContainer}>
           <Accordion
             expanded={expanded === "panel1"}
@@ -124,7 +124,7 @@ export default function DashboardPage() {
           {/* Popular Workouts */}
           <div className={`${styles.card} ${styles.cardWorkouts}`}>
             <header>
-              <h2>Popular Workouts</h2>
+              <h2>Roles</h2>
             </header>
             <WorkoutsList />
           </div>
@@ -132,7 +132,7 @@ export default function DashboardPage() {
           {/* Age Range */}
           <div className={`${styles.card} ${styles.cardAgeRange}`}>
             <header>
-              <h2>Age Range</h2>
+              <h2>Rango sobrelaniente</h2>
             </header>
             <AgeRangeChart />
           </div>
@@ -140,7 +140,7 @@ export default function DashboardPage() {
           {/* Impressions */}
           <div className={`${styles.card} ${styles.cardImpressions}`}>
             <header>
-              <h2>Impressions</h2>
+              <h2>Impresiones</h2>
             </header>
             <ImpressionsMap />
           </div>

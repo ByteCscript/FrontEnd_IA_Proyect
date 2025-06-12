@@ -20,16 +20,13 @@ export default function SalesChart() {
   useEffect(() => {
     Promise.all([getSales(), getUsers()])
       .then(([rawSales, users]) => {
-        // 1) Map user_id → name
         const map = {};
         users.forEach(u => (map[u.id] = u.name));
         setUserMap(map);
 
-        // 2) Find unique user_ids
         const ids = Array.from(new Set(rawSales.map(r => r.user_id)));
         setUserIds(ids);
 
-        // 3) Pivot by date and compute per-user and total
         const pivot = {};
         rawSales.forEach(({ date, user_id, amount }) => {
           if (!pivot[date]) pivot[date] = { date, total: 0 };
@@ -38,7 +35,6 @@ export default function SalesChart() {
           pivot[date].total += amount;
         });
 
-        // 4) Turn into sorted array
         const chartData = Object.values(pivot).sort(
           (a, b) => new Date(a.date) - new Date(b.date)
         );
@@ -49,7 +45,6 @@ export default function SalesChart() {
 
   if (!data.length || !userIds.length) return null;
 
-  // Colors for individual user lines (low opacity)
   const USER_COLORS = [
     '#8884d8', '#82ca9d', '#ffc658', '#ff8042',
     '#8dd1e1', '#a4de6c', '#d0ed57', '#888888'
@@ -75,7 +70,7 @@ export default function SalesChart() {
         />
         <Legend verticalAlign="top" wrapperStyle={{ marginBottom: 16 }} />
 
-        {/* individual user traces (lighter, no dots) */}
+        {/* Trazas de usuario, animación más lenta */}
         {userIds.map((id, idx) => (
           <Line
             key={id}
@@ -86,11 +81,14 @@ export default function SalesChart() {
             strokeWidth={1}
             dot={false}
             opacity={0.4}
-            isAnimationActive={false}
+            isAnimationActive={true}
+            animationBegin={0}
+            animationDuration={15000}
+            animationEasing="ease-in-out"
           />
         ))}
 
-        {/* total sales line (prominent) */}
+        {/* Línea de ventas totales, también lenta y suave */}
         <Line
           type="monotone"
           dataKey="total"
@@ -100,7 +98,9 @@ export default function SalesChart() {
           dot={{ r: 4, fill: '#ffffff' }}
           activeDot={{ r: 6, fill: '#ffffff' }}
           isAnimationActive={true}
-          animationDuration={1000}
+          animationBegin={0}
+          animationDuration={15000}
+          animationEasing="ease-in-out"
         />
       </LineChart>
     </ResponsiveContainer>

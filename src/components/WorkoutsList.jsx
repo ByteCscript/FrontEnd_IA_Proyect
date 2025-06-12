@@ -7,9 +7,10 @@ import {
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 
 const workouts = [
-  { name: 'Good morning', target: 'Shoulders', reps: '20 reps', count: '39k' },
-  { name: 'Seated Back Extension', target: 'Lower Back', reps: '15 reps', count: '31k' },
-  { name: 'Pull Ups', target: 'Back', reps: '12 reps', count: '27k' },
+  { name: 'Operario', target: 'Shoulders', reps: '20 reps', count: '39k' },
+  { name: 'Contadora', target: 'Lower Back', reps: '15 reps', count: '31k' },
+  { name: 'Ventas', target: 'Back', reps: '12 reps', count: '27k' },
+  { name: 'Administrador', target: 'Back', reps: '12 reps', count: '27k' },
 ];
 
 export default function WorkoutsList() {
