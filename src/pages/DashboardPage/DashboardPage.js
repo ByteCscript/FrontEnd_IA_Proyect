@@ -1,5 +1,5 @@
 // src/pages/DashboardPage/DashboardPage.jsx
-import React from "react";
+import React, { useState } from "react";
 import styles from "./DashboardPage.module.css";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -11,8 +11,20 @@ import WorkoutsList from "../../components/WorkoutsList";
 import AgeRangeChart from "../../components/charts/AgeRangeChart";
 import ImpressionsMap from "../../components/ImpressionsMap";
 
+// Material UI Accordion
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 export default function DashboardPage() {
-   const { user } = useAuth();
+  const { user, signOut } = useAuth();
+  const [expanded, setExpanded] = useState(false);
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
 
   return (
     <div className={styles.dashboardWrapper}>
@@ -24,14 +36,35 @@ export default function DashboardPage() {
           <div className={styles.navItem}>Finance</div>
           <div className={styles.navItem}>Workouts</div>
         </nav>
-        <div className={styles.profile}>
-          <img
-            src="/path/to/avatar.jpg"
-            alt="Avatar"
-            className={styles.profileImg}
-          />
-          <div className={styles.profileName}>{user?.name || user?.email}</div>
-        </div>
+        <Accordion
+          expanded={expanded === "panel1"}
+          onChange={handleChange("panel1")}
+          sx={{ background: "transparent", boxShadow: "none" }}
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}
+            aria-controls="profile-content"
+            id="profile-header"
+            sx={{ padding: 0 }}
+          >
+            {/* Primera “columna”: tu avatar */}
+            <img
+              src="/path/to/avatar.jpg"
+              alt="Avatar"
+              className={styles.profileImg}
+            />
+            {/* Segunda “columna”: el texto HOLA MUNDO */}
+            <Typography
+              component="span"
+              sx={{ marginLeft: "0.5rem", color: "#fff" }}
+            >
+              HOLA MUNDO
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails sx={{ padding: "0.5rem 1rem" }}>
+            <button onClick={signOut}>Cerrar sesión</button>
+          </AccordionDetails>
+        </Accordion>
       </header>
       <div className={styles.dashboardGrid}>
         {/* Revenue */}
