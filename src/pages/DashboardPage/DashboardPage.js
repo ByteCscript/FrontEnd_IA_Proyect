@@ -1,6 +1,7 @@
 // src/pages/DashboardPage/DashboardPage.jsx
 import React from "react";
 import styles from "./DashboardPage.module.css";
+import { useAuth } from "../../hooks/useAuth";
 
 // IMPORTA AQUÍ tus componentes de gráficos:
 import RevenueChart from "../../components/charts/RevenueChart";
@@ -11,10 +12,27 @@ import AgeRangeChart from "../../components/charts/AgeRangeChart";
 import ImpressionsMap from "../../components/ImpressionsMap";
 
 export default function DashboardPage() {
- 
+   const { user } = useAuth();
 
   return (
     <div className={styles.dashboardWrapper}>
+      <header className={styles.dashboardHeader}>
+        <div className={styles.logo}>fitonist</div>
+        <nav className={styles.nav}>
+          <div className={styles.navItem}>Overview</div>
+          <div className={styles.navItem}>Analytics</div>
+          <div className={styles.navItem}>Finance</div>
+          <div className={styles.navItem}>Workouts</div>
+        </nav>
+        <div className={styles.profile}>
+          <img
+            src="/path/to/avatar.jpg"
+            alt="Avatar"
+            className={styles.profileImg}
+          />
+          <div className={styles.profileName}>{user?.name || user?.email}</div>
+        </div>
+      </header>
       <div className={styles.dashboardGrid}>
         {/* Revenue */}
         <div className={`${styles.card} ${styles.cardRevenue}`}>
