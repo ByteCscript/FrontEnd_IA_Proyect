@@ -50,8 +50,16 @@ body {
 
   color: #333;
   line-height: 1.5;
+  
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
 
 /* Imágenes y vídeos responsivos */
 img,

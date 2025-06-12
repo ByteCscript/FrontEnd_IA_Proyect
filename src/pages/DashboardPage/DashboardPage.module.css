@@ -16,8 +16,17 @@
   padding-right: 2rem;
   box-sizing: border-box;
   overflow-x: hidden;                /* asegurar sin scroll horizontal */
+  overflow-y: auto;        /* scroll habilitado */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;    /* Firefox */
 }
 
+/* Chrome, Safari y Opera */
+.dashboardWrapper::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background: transparent; /* opcional: fondo transparente */
+}
 /* Header fijo en la parte superior */
 .dashboardHeader {
   position: fixed;
