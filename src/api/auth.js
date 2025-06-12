@@ -1,54 +1,40 @@
 // src/api/AuthService.js
-
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+const BASE_API = process.env.REACT_APP_API_URL || "http://localhost:8000/api";
 
 const AuthService = {
-  /**
-   * POST /login
-   * @param {{ email: string, password: string }} credentials
-   * @returns {Promise<string>} access_token
-   */
   async login({ email, password }) {
-    const res = await fetch(`${API_URL}/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    const res = await fetch(`${BASE_API}/users/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
+    // justo antes del fetch en AuthService.login
+    console.log("Enviando body:", JSON.stringify({ email, password }));
 
+    if (res.status === 422) {
+      const { detail } = await res.json();
+      console.error("Validation errors:", detail);
+      throw new Error("Validation error");
+    }
     if (!res.ok) {
-      const error = new Error('Login failed');
-      error.status = res.status;
-      throw error;
+      throw new Error(`Login failed (${res.status})`);
     }
 
-    const data = await res.json();
-    const token = data.access_token;
-    localStorage.setItem('access_token', token);
-    return token;
+    const { access_token } = await res.json();
+    localStorage.setItem("access_token", access_token);
+    return access_token;
   },
 
-  /**
-   * Remove token locally
-   */
   logout() {
-    localStorage.removeItem('access_token');
-    // opcional: llamar a /logout en el backend
+    localStorage.removeItem("access_token");
   },
 
-  /**
-   * GET /users/me
-   * Ejemplo de endpoint protegido
-   */
   async getProfile() {
-    const token = localStorage.getItem('access_token');
-    const res = await fetch(`${API_URL}/users/me`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    const token = localStorage.getItem("access_token");
+    const res = await fetch(`${BASE_API}/users/me`, {
+      headers: { Authorization: `Bearer ${token}` },
     });
-    if (!res.ok) throw new Error('Failed to fetch profile');
+    if (!res.ok) throw new Error("Failed to fetch profile");
     return res.json();
   },
 };
