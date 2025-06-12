@@ -147,3 +147,31 @@
       "impressions";
   }
 }
+
+
+/* Limpieza de estilos para Accordion en header */
+.summaryRoot {
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;   /* ahora los separa más */
+  min-height: 0 !important;
+}
+.summaryRootExpanded {
+  min-height: 0 !important;
+}
+.summaryContent {
+  margin: 0 !important;
+  align-items: center !important;
+}
+.summaryContentExpanded {
+  margin: 0 !important;
+}
+.expandIconWrapper {
+  color: #fff !important;
+}
+.detailsRoot {
+  padding: 0 !important;
+  margin-top: 4px !important;
+}

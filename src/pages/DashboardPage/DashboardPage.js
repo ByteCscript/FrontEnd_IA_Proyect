@@ -50,45 +50,47 @@ export default function DashboardPage() {
           disableGutters
           elevation={0}
           square
-          sx={{ width: "auto", bgcolor: "transparent" }}
+          sx={{ bgcolor: "transparent", width: "auto" }}
         >
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}
+            expandIcon={<ExpandMoreIcon />}
             aria-controls="profile-content"
             id="profile-header"
-            sx={{
-              p: 0,
-              m: 0,
-              minHeight: 0,
-              "& .MuiAccordionSummary-content": {
-                margin: 0,
-                alignItems: "center",
-              },
-              display: "flex",
-              alignItems: "center",
-              gap: 1,
+            disableGutters
+            classes={{
+              root: styles.summaryRoot,
+              expanded: styles.summaryRootExpanded,
+              content: styles.summaryContent,
+              contentExpanded: styles.summaryContentExpanded,
+              expandIconWrapper: styles.expandIconWrapper,
             }}
           >
             <Avatar {...stringAvatar(name)} />
-            <Typography sx={{ color: "#fff", fontWeight: 500 }}>
+            <Typography
+              sx={{
+                color: "#fff",
+                fontWeight: 500,
+                marginLeft: "1rem", // aquí defines la separación que necesites
+              }}
+            >
               HOLA MUNDO
             </Typography>
           </AccordionSummary>
 
-          <AccordionDetails sx={{ p: 0, mt: 1 }}>
+          <AccordionDetails classes={{ root: styles.detailsRoot }}>
             <Paper
               elevation={3}
-              sx={{
-                bgcolor: "background.paper",
-                borderRadius: 1,
-                overflow: "hidden",
-              }}
+              sx={{ bgcolor: "background.paper", borderRadius: 1 }}
             >
               <List component="nav" disablePadding>
-                <ListItemButton onClick={signOut}>
+                <ListItemButton
+                  onClick={() => {
+                    signOut();
+                    setExpanded(false);
+                  }}
+                >
                   <ListItemText primary="Cerrar sesión" />
                 </ListItemButton>
-                {/* Si quieres más opciones, añádelas aquí como ListItemButton */}
               </List>
             </Paper>
           </AccordionDetails>
