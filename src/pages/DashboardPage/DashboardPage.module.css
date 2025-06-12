@@ -123,6 +123,8 @@
 .cardAgeRange    { grid-area: ageRange; }
 .cardImpressions { grid-area: impressions; }
 
+
+
 /* Responsive: tablets pequeñas */
 @media (max-width: var(--bp-lg, 1024px)) {
   .dashboardGrid {
