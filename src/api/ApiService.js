@@ -20,4 +20,33 @@ ApiService.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+// Endpoints de métricas
+
+/**
+ * GET /productivity
+ * Devuelve todas las filas de la tabla productivity como list[ProductivityOut]
+ */
+export async function getProductivity() {
+  const response = await ApiService.get('/productivity');
+  return response.data;
+}
+
+/**
+ * GET /sales
+ * Devuelve todas las filas de la tabla sales como list[SaleOut]
+ */
+export async function getSales() {
+  const response = await ApiService.get('/sales');
+  return response.data;
+}
+
+/**
+ * GET /reports
+ * Devuelve todas las filas de la tabla reports como list[ReportOut]
+ */
+export async function getReports() {
+  const response = await ApiService.get('/reports');
+  return response.data;
+}
+
 export default ApiService;

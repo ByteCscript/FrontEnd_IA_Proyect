@@ -37,7 +37,7 @@ export default function DashboardPage() {
   return (
     <div className={styles.dashboardWrapper}>
       <header className={styles.dashboardHeader}>
-        <div className={styles.logo}>fitonist</div>
+        <div className={styles.logo}>IA Proyect</div>
         <nav className={styles.nav}>
           <div className={styles.navItem}>Overview</div>
           <div className={styles.navItem}>Analytics</div>
