@@ -1,9 +1,9 @@
 /* src/pages/DashboardPage/DashboardPage.module.css */
 
-/* Wrapper que contiene header fijo y dashboard, con espacio para el header */
+/* Wrapper que contiene header fijo y dashboard, sin scroll horizontal */
 .dashboardWrapper {
   position: relative;
-  width: 100vw;
+  width: 100%;                      /* cambiado 100vw a 100% */
   min-height: 100vh;
   /* Espacio extra para que el dashboard no quede debajo del header */
   padding-top: calc(64px + 1.5rem);
@@ -15,7 +15,7 @@
   padding-left: 2rem;
   padding-right: 2rem;
   box-sizing: border-box;
-  overflow-x: hidden;
+  overflow-x: hidden;                /* asegurar sin scroll horizontal */
 }
 
 /* Header fijo en la parte superior */
@@ -85,7 +85,7 @@
     "workouts ageRange impressions";
 }
 
-/* Tarjeta base */
+/* Estilo base de cada tarjeta */
 .card {
   background: var(--card-bg, #1e293b);
   border-radius: var(--border-radius, 12px);
