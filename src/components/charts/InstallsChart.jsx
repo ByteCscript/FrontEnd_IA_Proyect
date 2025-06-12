@@ -8,41 +8,50 @@ import {
   Tooltip,
   CartesianGrid,
   ResponsiveContainer,
-  Cell
+  Legend
 } from 'recharts';
-import { getProductivity } from '../../api/ApiService';
+import { getProductivity, getUsers } from '../../api/ApiService';
 
 export default function StackedProductivityChart() {
   const [data, setData] = useState([]);
   const [userIds, setUserIds] = useState([]);
+  const [userMap, setUserMap] = useState({});
 
   useEffect(() => {
-    getProductivity()
-      .then(raw => {
-        // 1) Averiguar todos los user_id únicos
-        const ids = Array.from(new Set(raw.map((r) => r.user_id)));
+    // Fetch productivity metrics and user list in parallel
+    Promise.all([getProductivity(), getUsers()])
+      .then(([rawMetrics, users]) => {
+        // Build user_id → name map
+        const map = {};
+        users.forEach((u) => {
+          map[u.id] = u.name;
+        });
+        setUserMap(map);
+
+        // Unique user IDs from metrics
+        const ids = Array.from(new Set(rawMetrics.map((r) => r.user_id)));
         setUserIds(ids);
 
-        // 2) Pivotar: para cada fecha, crear un objeto { date, u1: value, u2: value, ... }
+        // Pivot metrics into date buckets per user
         const pivot = {};
-        raw.forEach(({ date, user_id, value }) => {
+        rawMetrics.forEach(({ date, user_id, value }) => {
           if (!pivot[date]) pivot[date] = { date };
           const key = `u${user_id}`;
           pivot[date][key] = (pivot[date][key] || 0) + value;
         });
 
-        // 3) Ordenar cronológicamente y pasar a array
+        // Sort by date
         const chartData = Object.values(pivot).sort(
           (a, b) => new Date(a.date) - new Date(b.date)
         );
         setData(chartData);
       })
-      .catch((err) => console.error('Error cargando productividad:', err));
+      .catch((err) => console.error('Error cargando datos:', err));
   }, []);
 
-  if (!data.length) return null;
+  if (!data.length || !userIds.length) return null;
 
-  // Colores para cada usuario (cicla si hay más de 5)
+  // Some nice colors to cycle through
   const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff8042', '#8dd1e1'];
 
   return (
@@ -54,21 +63,22 @@ export default function StackedProductivityChart() {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="date" />
         <YAxis />
-        <Tooltip
-          formatter={(val) => val.toFixed(1)}
-          labelFormatter={(lbl) => `Día: ${lbl}`}
+        <Tooltip 
+          formatter={(val) => val.toFixed(1)} 
+          labelFormatter={(lbl) => `Día: ${lbl}`} 
         />
+        <Legend verticalAlign="top" />
 
         {userIds.map((id, idx) => (
           <Bar
             key={id}
             dataKey={`u${id}`}
+            name={userMap[id] || `User ${id}`}
             stackId="a"
             fill={COLORS[idx % COLORS.length]}
             isAnimationActive={false}
           />
         ))}
-
       </BarChart>
     </ResponsiveContainer>
   );
