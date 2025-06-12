@@ -28,7 +28,6 @@ export default function DashboardPage() {
     setExpanded(isExpanded ? panel : false);
   };
 
-  
   const name = user?.name || user?.email || "";
 
   return (
@@ -69,53 +68,55 @@ export default function DashboardPage() {
           </AccordionDetails>
         </Accordion>
       </header>
-      <div className={styles.dashboardGrid}>
-        {/* Revenue */}
-        <div className={`${styles.card} ${styles.cardRevenue}`}>
-          <header>
-            <h2>Revenue</h2>
-          </header>
-          <RevenueChart />
-        </div>
+      <div className={styles.gridContainer}>
+        <div className={styles.dashboardGrid}>
+          {/* Revenue */}
+          <div className={`${styles.card} ${styles.cardRevenue}`}>
+            <header>
+              <h2>Revenue</h2>
+            </header>
+            <RevenueChart />
+          </div>
 
-        {/* Calendar */}
-        <div className={`${styles.card} ${styles.cardCalendar}`}>
-          <header>
-            <h2>Calendar</h2>
-          </header>
-          <CalendarWidget />
-        </div>
+          {/* Calendar */}
+          <div className={`${styles.card} ${styles.cardCalendar}`}>
+            <header>
+              <h2>Calendar</h2>
+            </header>
+            <CalendarWidget />
+          </div>
 
-        {/* Installs */}
-        <div className={`${styles.card} ${styles.cardInstalls}`}>
-          <header>
-            <h2>Installs</h2>
-          </header>
-          <InstallsChart />
-        </div>
+          {/* Installs */}
+          <div className={`${styles.card} ${styles.cardInstalls}`}>
+            <header>
+              <h2>Installs</h2>
+            </header>
+            <InstallsChart />
+          </div>
 
-        {/* Popular Workouts */}
-        <div className={`${styles.card} ${styles.cardWorkouts}`}>
-          <header>
-            <h2>Popular Workouts</h2>
-          </header>
-          <WorkoutsList />
-        </div>
+          {/* Popular Workouts */}
+          <div className={`${styles.card} ${styles.cardWorkouts}`}>
+            <header>
+              <h2>Popular Workouts</h2>
+            </header>
+            <WorkoutsList />
+          </div>
 
-        {/* Age Range */}
-        <div className={`${styles.card} ${styles.cardAgeRange}`}>
-          <header>
-            <h2>Age Range</h2>
-          </header>
-          <AgeRangeChart />
-        </div>
+          {/* Age Range */}
+          <div className={`${styles.card} ${styles.cardAgeRange}`}>
+            <header>
+              <h2>Age Range</h2>
+            </header>
+            <AgeRangeChart />
+          </div>
 
-        {/* Impressions */}
-        <div className={`${styles.card} ${styles.cardImpressions}`}>
-          <header>
-            <h2>Impressions</h2>
-          </header>
-          <ImpressionsMap />
+          {/* Impressions */}
+          <div className={`${styles.card} ${styles.cardImpressions}`}>
+            <header>
+              <h2>Impressions</h2>
+            </header>
+            <ImpressionsMap />
+          </div>
         </div>
       </div>
     </div>

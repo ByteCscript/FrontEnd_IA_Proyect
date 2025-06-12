@@ -94,6 +94,16 @@
     "workouts ageRange impressions";
 }
 
+/* src/pages/DashboardPage/DashboardPage.module.css */
+
+.gridContainer {
+  /* Altura disponible menos header y padding wrapper */
+  padding-bottom: 1rem;
+  overflow-y: auto;     /* scroll interno si hace falta */
+  width: 100%;
+}
+
+
 /* Estilo base de cada tarjeta */
 .card {
   background: var(--card-bg, #1e293b);
